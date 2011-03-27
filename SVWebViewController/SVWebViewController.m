@@ -14,6 +14,9 @@
 - (void)setupToolbar;
 - (void)setupTabletToolbar;
 
+- (IBAction)dismissController;
+- (IBAction)showActions;
+
 @end
 
 @implementation SVWebViewController
@@ -305,12 +308,12 @@
 #pragma mark -
 #pragma mark Orientation Support
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	
 	if(deviceIsTablet)
-		return YES;
+		return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 	
-	return NO;
+	return toInterfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration {
