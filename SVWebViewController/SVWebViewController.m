@@ -68,6 +68,7 @@
 		if(self.navigationController == nil) {
 			
 			UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0,CGRectGetWidth(deviceBounds),44)];
+            navBar.barStyle = UIBarStyleBlack;
 			[self.view addSubview:navBar];
 			[navBar release];
 			
