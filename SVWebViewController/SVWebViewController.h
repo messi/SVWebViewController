@@ -26,6 +26,7 @@
 }
 
 @property (nonatomic, retain) NSString *urlString;
+@property (nonatomic) UIBarStyle toolBarStyle;
 
 - (id)initWithAddress:(NSString*)string;
 

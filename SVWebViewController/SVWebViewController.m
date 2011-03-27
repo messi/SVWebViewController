@@ -22,6 +22,7 @@
 @implementation SVWebViewController
 
 @synthesize urlString;
+@synthesize toolBarStyle;
 
 - (void)dealloc {
 	navItem = nil;
@@ -193,6 +194,7 @@
 
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setToolbarHidden:YES animated:animated];
 	[super viewWillDisappear:animated];
 	
 	[rWebView stopLoading];
@@ -269,7 +271,14 @@
 	rSeparator.enabled = NO;
 	
 	NSArray *newButtons = [NSArray arrayWithObjects:backBarButton, rSeparator, forwardBarButton, rSeparator, refreshStopBarButton, sSeparator, actionBarButton, nil];
-	[toolbar setItems:newButtons];
+    if(self.navigationController == nil) {
+        [toolbar setItems:newButtons];
+    } else {
+        toolbar.hidden = YES;
+        [self.navigationController setToolbarItems:newButtons];
+        [self.navigationController setToolbarHidden:NO animated:YES];
+    }
+        
 	
 	[refreshStopBarButton release];
 	[sSeparator release];
@@ -302,6 +311,21 @@
 		[refreshStopButton addTarget:rWebView action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
 		[refreshStopButton setBackgroundImage:[UIImage imageNamed:@"webRefreshTablet"] forState:UIControlStateNormal];
 	}
+}
+
+#pragma mark -
+#pragma mark Getter and Setter
+
+- (UIBarStyle)toolBarStyle {
+    return toolbar.barStyle;
+}
+
+- (void)setToolBarStyle:(UIBarStyle)newToolBarStyle {
+    if(self.navigationController == nil) {
+        toolbar.barStyle = newToolBarStyle;
+    } else {
+        self.navigationController.toolbar.barStyle = newToolBarStyle;
+    }
 }
 
 
